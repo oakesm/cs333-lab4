@@ -3,7 +3,7 @@ import express from "express";
 const app = express();
 const port = 3000;
 
-function logger(req, res, next) {
+function logger(req, res, next) { //function used to log the request method and URL
   console.log("Request method:", req.method);
   console.log("Request URL:", req.url);
   next();
