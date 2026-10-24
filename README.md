@@ -12,7 +12,9 @@ Every step gives you the code. Type it in (typing it is how it sticks), run it, 
 - **Your code:** make your own copy of this lab (click **Use this template**, or clone it), do your work, and **push it to your own GitHub repo**.
 - **Your landing page** on `lampforall`, with Lab 4 added (the last step).
 
-This lab runs **on your computer**. Our `lampforall` server only hands out the files you upload; it can't run Node programs. **Question 1**: Why can't our lampforall run Node?
+This lab runs **on your computer**. Our `lampforall` server only hands out the files you upload; it can't run Node programs. **Question 1**: Why can't our lampforall run Node? 
+
+It lacks the components needed to run Node. 
 
 **Stuck on Monday?** Look at the **Stuck?** table at the bottom first. Then post in the Slack lab thread: (1) the command you ran, (2) the **exact** error, copied and pasted, (3) what you already tried. Helping a classmate counts too.
 
@@ -47,6 +49,8 @@ You should see something like `v22.11.0` or higher. If you see "command not foun
 
 **Question 2:** what version do you have?
 
+v26.1.0
+
 ## 3. Try Node by itself
 
 Type `node` and press Enter. The prompt changes to `>`. Now Node runs each line you type:
@@ -60,6 +64,8 @@ Type `node` and press Enter. The prompt changes to `>`. Now Node runs each line 
 Type `.exit` to leave.
 
 **Question 3:** `document` worked in the browser's Console. What happens here, and why do you think that is?
+
+Here it says Uncaught Reference Error: document is not defined. I think that document is an undefined object. 
 
 ## 4. Your first Node program
 
@@ -91,6 +97,8 @@ node --watch index.js
 ```
 
 **Question 4:** What does the `--watch` flag do?
+
+--watch waits for file changes and will automatically run again if the message is changed. 
 
 **TODO:** change the message and save. It runs again by itself. Press **Ctrl+C** to stop it.
 
@@ -129,6 +137,8 @@ Run it with `node index.js`. A new `message.txt` appears in your folder. Open it
 
 **Question 5:** what is the error code? (It's a word in capitals.)
 
+ENOENT
+
 **TODO 2:** fix the crash with `try` / `catch`, the same as last Wednesday. Replace the last two lines with:
 
 ```js
@@ -143,6 +153,8 @@ try {
 Run it again: a friendly message instead of a crash.
 
 **Question 6:** How does try/catch in js work with await? Just describe the above example in your own words.
+
+When the file is read but does not exist an error is thrown up instead of crashing everything. 
 
 ## 7. You'll see older code too
 
@@ -172,10 +184,12 @@ There are two popular QR code packages. Look each one up on [npmjs.com](https://
 
 | | `qr-image` | `qrcode` |
 | --- | --- | --- |
-| Weekly downloads | | |
-| Last published (look on the right side of the page) | | |
+| Weekly downloads | 102,894 | 4,631,542 |
+| Last published (look on the right side of the page) |10 years ago |2 years ago |
 
 **Question 8:** which would you pick for a project you had to look after for years, and why? (We'll use `qrcode`.)
+
+I would use qrcode because there's more downloads and it's more recently published, but not too recently published. 10 years is old. 
 
 ## 9. The QR code generator
 
@@ -229,6 +243,8 @@ const url = await input({
 ```
 
 **TODO:** run it and type `sou.edu`. What happens? Then type `https://sou.edu`.
+
+The message of "Type the whole address, starting with https://" comes up. 
 
 **Step D: name the file after the website.** Replace your `toFile` and `console.log` lines with:
 
@@ -288,6 +304,8 @@ To run a file: `npm run dev1` (or `dev2`, `dev3`, `dev4`). That runs `node --wat
 10. Run `npm run dev1` and open `http://localhost:3000`. You see the form. Fill it in and press the button.
     **Question 9:** what does the page say?
 
+Cannot POST /submit
+
 11. Add a route for the form. Type this above `app.listen`:
     ```js
     app.post("/submit", function (req, res) {
@@ -297,14 +315,20 @@ To run a file: `npm run dev1` (or `dev2`, `dev3`, `dev4`). That runs `node --wat
     ```
     Submit the form again. **Question 10:** what does the server terminal print for `req.body`?
 
+    undefined
+
 12. Add this line under `const port = 3000;`:
     ```js
     app.use(express.urlencoded());
     ```
     Submit again. **Question 11:** what does the terminal print now? What did `express.urlencoded()` do?
 
+    The terminal prints the form responses
+
 13. **Test without the browser.** Install the **REST Client** extension in VS Code, open `Middleware/requests.http`, and click **Send Request** above the second request. The answer opens on the right.
     **TODO:** change `Biscuit` to another pet name in `requests.http` and send it again. Look at the server terminal.
+
+
 
 ## index2.js: log every request with morgan
 
@@ -318,9 +342,13 @@ To run a file: `npm run dev1` (or `dev2`, `dev3`, `dev4`). That runs `node --wat
     Reload `http://localhost:3000` a few times and look at the terminal.
     **Question 12:** a log line looks like `GET / 200 3.1 ms - 5`. What do you think each part means?
 
+    Get means fetching information. The number 200 or something like 304 is the code. 200 is success 304 is that the information has not changed. 3.1 ms is how fast it worked. I don't know about the - 5. 
+
 ## index3.js: write your own middleware
 
 15. Run `npm run dev3`. It crashes straight away. **Question 13:** what does the error say?
+
+The error says Reference Error: logger is not defined
 
 16. Fix it: type this function above `app.use(logger);`:
     ```js
@@ -333,6 +361,8 @@ To run a file: `npm run dev1` (or `dev2`, `dev3`, `dev4`). That runs `node --wat
     Reload the page and look at the terminal.
 
 17. **TODO:** put `//` in front of `next();` and reload the page. **Question 14:** what happens in the browser? Why? Then take the `//` away.
+
+The browser stayed the same. I think it is probably supposed to not load but that's not what happened on my machine. 
 
 ## index4.js: the Band Name Generator
 
@@ -356,8 +386,12 @@ To run a file: `npm run dev1` (or `dev2`, `dev3`, `dev4`). That runs `node --wat
 
 20. **TODO:** type `<b>Maple</b>` as the street name. **Question 15:** what happens, and why is that the same problem as Week 3's `innerHTML`?
 
+Nothing happened on my end. But because it is HTML I would think something bad would happen. 
+
 21. Now look at `solution4.js`. It fixes that with `escapeHtml`, and it moves the band-name step into its own middleware, `bandNameGenerator`, which only runs for `/submit`. Copy those two functions into your `index4.js` and change your route to match `solution4.js`.
     **Question 16:** what does `bandNameGenerator` do when a box is empty? Test it with the third request in `requests.http`.
+
+It says "Maple undefined"
 
 **Commit** after each `indexN.js` works.
 
